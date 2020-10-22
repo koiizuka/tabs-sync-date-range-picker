@@ -1,11 +1,16 @@
 <mat-tab-group [formGroup]="form">
-  <mat-tab label="First"><input formControlName="start" [value]="form.get('start').value"></mat-tab>
-  <mat-tab label="Second"><input formControlName="start" [value]="form.get('start').value"></mat-tab>
-  <mat-tab label="Third"><input formControlName="start" [value]="form.get('start').value"></mat-tab>
+  <mat-tab [label]="i" *ngFor="let i of tabs">
+    <ng-container *ngTemplateOutlet="templateRef"></ng-container>
+  </mat-tab>
 </mat-tab-group>
 
-<mat-tab-group [formGroup]="form">
-  <mat-tab label="First"><input formControlName="end" [value]="form.get('end').value"></mat-tab>
-  <mat-tab label="Second"><input formControlName="end" [value]="form.get('end').value"></mat-tab>
-  <mat-tab label="Third"><input formControlName="end" [value]="form.get('end').value"></mat-tab>
-</mat-tab-group>
+<ng-template #templateRef>
+  <mat-form-field appearance="fill">
+    <mat-date-range-input [rangePicker]="picker" [formGroup]="form">
+      <input matStartDate placeholder="Start date" formControlName="start" (dateChange)="startlog($event)">
+      <input matEndDate placeholder="End date" formControlName="end" (dateChange)="endlog($event)">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+</ng-template>
