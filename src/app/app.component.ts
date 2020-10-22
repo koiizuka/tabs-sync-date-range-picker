@@ -1,10 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'tabs-sync-date-range-picker';
+export class AppComponent implements OnInit {
+  form: FormGroup;
+  start: string = '';
+  end: string = '';
+
+  ngOnInit() {
+    this.form = new FormGroup({
+      start: new FormControl(),
+      end: new FormControl()
+    });
+  }
 }

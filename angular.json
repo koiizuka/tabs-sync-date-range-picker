@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -92,6 +93,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -123,6 +125,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tabs-sync-date-range-picker"
+    }
+  },
+  "defaultProject": "tabs-sync-date-range-picker",
+  "cli": {
+    "analytics": "0c1d1852-8d92-43eb-94b2-dd84e57e1b31"
+  }
 }
