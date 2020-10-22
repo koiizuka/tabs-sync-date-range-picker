@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange, MatDatepickerInputEvent, MatDateRangeSelectionStrategy, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
 
+// https://github.com/angular/components/blob/master/src/material/datepicker/date-range-selection-strategy.ts
 @Injectable()
 export class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeSelectionStrategy<D> {
   constructor(private _dateAdapter: DateAdapter<D>) {}
