@@ -1,11 +1,15 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, Inject, Injectable, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { DateAdapter } from '@angular/material/core';
 import { DateRange, MatDatepickerInputEvent, MatDateRangeSelectionStrategy, MAT_DATE_RANGE_SELECTION_STRATEGY } from '@angular/material/datepicker';
+import { Subject } from 'rxjs';
 
 // https://github.com/angular/components/blob/master/src/material/datepicker/date-range-selection-strategy.ts
 @Injectable()
 export class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeSelectionStrategy<D> {
+
+  isComplete = new Subject();
+
   constructor(private _dateAdapter: DateAdapter<D>) {}
 
   selectionFinished(date: D, currentRange: DateRange<D>) {
@@ -21,7 +25,7 @@ export class DefaultMatCalendarRangeStrategy<D> implements MatDateRangeSelection
     }
 
     if (end != null && start != null && this._dateAdapter.compareDate(date, start) >= 0) {
-      console.log('this');
+      this.isComplete.next();
     }
 
     return new DateRange<D>(start, end);
@@ -60,12 +64,17 @@ export class AppComponent implements OnInit {
   start: string = '';
   end: string = '';
 
+  constructor(@Inject(MAT_DATE_RANGE_SELECTION_STRATEGY) private strategy: DefaultMatCalendarRangeStrategy<Date>) {}
+
   ngOnInit() {
     this.form = new FormGroup({
       start: new FormControl(),
       end: new FormControl()
     });
 
+    this.strategy.isComplete.subscribe(() => {
+      console.log('this');
+    })
   }
 
   startlog(event: MatDatepickerInputEvent<Date>) {
